@@ -1,0 +1,23 @@
+#!/bin/sh
+
+if [ ! -f /firstrun.txt ]
+then
+    touch /firstrun.txt
+    mv /usr/share/nginx/html/data/config-sample.php /usr/share/nginx/html/data/config.php
+    sed -i -e "s/127.0.0.1/$VIRTUAL_HOST/g" /usr/share/nginx/html/data/config.php
+fi
+
+#if [ ! -f /data/minecraft_server.jar ]
+#then
+#    sudo -u MC curl "https://s3.amazonaws.com/Minecraft.Download/versions/1.10/minecraft_server.1.11.jar" -o /data/minecraft_server.jar
+#fi
+
+service nginx restart
+service php5-fpm restart
+
+cd /data
+
+echo 'eula=true' > /data/eula.txt
+chown -R www-data:www-data /data
+
+tail -f /var/log/nginx/error.log
