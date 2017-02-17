@@ -7,7 +7,7 @@ docker run --detach \
     --restart always \
     --publish 80:80 \
     --volume <Your MC Path>:/data \
-    killergoldfischmchostpane
+    killergoldfisch/mchostpane
 ```
     
 The data directory should contain a craftbukkit.jar file.
